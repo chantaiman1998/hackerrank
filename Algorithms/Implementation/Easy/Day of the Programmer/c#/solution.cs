@@ -84,14 +84,14 @@ class Solution {
         var daysTillAugInNonLeapYear = 243;
         var programmerDateInSeptember = 0;
         
-        programmerDateInSeptember = IsGregorianLeapYear(year) ? 256 - daysTillAugInLeap : 256 - daysTillAugInNonLeapYear;
+        programmerDateInSeptember = IsGregorianLeapYear(year) ? 256 - daysTillAugInLeapYear : 256 - daysTillAugInNonLeapYear;
         var dateWithFormat = programmerDateInSeptember + ".09." + year.ToString();
         return dateWithFormat;
     }
     
     private static bool IsGregorianLeapYear(int year)
     {
-        if (year % 400 == 0 || (year % 4 == 0 && year % 100 ! = 0))
+        if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0))
            return true;
         
         return false; 
@@ -99,7 +99,8 @@ class Solution {
     
     static void Main(String[] args)
     {
-        var year = int.Parse(ReadOnlySpan<char> s)
+        var year = int.Parse(Console.ReadLine());
+        var result = Solve(year);
+        Console.WriteLine(result);
     }
-
 }
