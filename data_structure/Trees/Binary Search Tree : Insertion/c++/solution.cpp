@@ -46,16 +46,15 @@ class Node {
 */
 
     Node * insert(Node * root, int data) {
-        Node * r = root;
-        Node *rs = NULL;
-        Node *ls = NULL;        
-
-        if(root == NULL){
-            root = new Node;
-            root->data = value;
-            root->left = root->right = NULL;
-        }
-
+        // This will create the root the first time
+        if(!root) return new Node(data);
+        
+        // go left or go right
+        if (root->data > data)
+            root->left = insert(root->left, data);
+        else 
+            root->right = insert(root->right, data);
+            
         return root;
     }
 
