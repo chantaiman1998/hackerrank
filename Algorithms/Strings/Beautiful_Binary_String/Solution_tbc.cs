@@ -105,8 +105,73 @@ public class Solver
     public static string ReadToken()
     {
         while(currentLineTokens.Count == 0)
-            
+          currentLineTokens = new Queue<string>(ReadAndSplitLine());
+        return currentLineTokens.Dequeue();
     }
+    public static int ReadInt()
+    {
+        return int.Parse(ReadToken());
+    }
+    public static long ReadLong()
+    {
+        return long.Parse(ReadToken());
+    }
+    public static double ReadDouble()
+    {
+        return double.Parse(ReadToken(), CultureInfo.InvariantCulture);
+    }
+    public static int[] ReadIntArray()
+    {
+        return ReadAndSplitLine().Select(x=>int.Parse(x)).ToArray();
+    }
+    public static long[] ReadDoubleArray()
+    {
+        return ReadAndSplitLine().Select(s => double.Parse(s, CultureInfo.InvariantCulture)).ToArray();
+    }
+    public static int[][] ReadIntMatrix(int numberOfRows)
+    {
+        int[][] matrix = new int[numberOfRows][];
+        for (int i = 0; i < numberOfRows; i++)
+           matrix[i] = ReadIntArray();
+        return matrix;
+    }
+    public static int[][] ReadAndTransposeIntMatrix(int numberOfRows)
+    {
+        int[][] matrix = ReadIntMatrix(numberOfRows);
+        int[][] ret = new int[matrix[0].Length][];
+        for (int i = 0; i < ret.Length; i++)
+        {
+            ret[i] = new int[numberOfRows];
+            for (int j = 0; j < numberOfRows; j++)
+                ret[i][j] = matrix[j][i];
+        }
+        return ret;
+    }
+
+    public static string[] ReadLines(int quantity)
+    {
+        string[] lines = new string[quantity];
+        for (int i = 0; i < quantity; i++)
+            lines[i] = reader.ReadLine().Trim();
+        return lines;
+    }
+
+    public static void WriteArray<T>(IEnumerable<T> array)
+    {
+        writer.WriteLine(string.Join(" ", array.Select(aa => aa.ToString()).ToArray()));
+    }
+
+    public static void Write<T>(params T[] array)
+    {
+        WriteArray(array);
+    }
+
+    public static void WriteLines<T>(IEnumerable<T> array)
+    {
+        foreach (var a in array)
+            writer.WriteLine(a);
+    }
+
+    #endregion
     
-}
 
