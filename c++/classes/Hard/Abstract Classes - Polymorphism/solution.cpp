@@ -19,8 +19,103 @@ struct Node{
 class Cache{
   protected:
   map<int, Node*> mp; // map the key to node in linked list
-  
-}
+  int cp; // capacity
+  Node* tail;   // doublie linked list tail pointer
+  Node* head;   // doublie linked list head pointer
+  virtual void set(int, int) = 0;   // set function
+  virtual void get(int) = 0;        // get function
+};
 
-    
-    
+// method start
+class LRUCache: public Cache
+{
+  public:
+      LRUCache(int c)
+      {
+        cp = c;
+      }
+      void set(int k, int v)
+      {
+        Node* v;
+        if(mp.empty())
+        {
+          N = new Node(k, v);
+          tail = head = N;
+          mp[k] = N;
+          return;
+        }
+        auto it = mp.find(k);
+        if(it != mp.end())
+        {
+          it->second->value = v;
+          if(head == it->second)
+          {
+              return;
+          }
+          it->second->next->prev = it->second->prev;
+          if(tail == it->second)
+          {
+              tail = tail->prev;
+          } 
+          else
+          {
+              it->second->next->prev = it->second->prev;
+          }
+          it->second->next = head;
+          it->second->prev = nullptr;
+          head->prev = it->second;
+          head = it->second;
+       }
+       else
+       {
+          N = new Node(head->prev, head, k, v);
+          head->prev = N;
+          head = N;
+          mp[k] = N;
+          if ( mp.size() > cp )
+          {
+             tail = tail->prev;
+             mp.erase(tail->next->key);
+             delete tail->next;
+             tail->next = nullptr;
+          }
+       }
+    }
+    int get(int k)
+    {
+        auto it = mp.find(k);
+        if ( it != mp.end() )
+        {
+           return it->second->value;
+        }
+        return -1;
+    }
+};
+
+// main test class
+int main()
+{
+  int n, capacity, i;
+  cin >> n >> capacity;
+  LRUCache l(capacity);
+  for(i=0; i<n; i++)
+  {
+      string command;
+      cin >> command;
+      if(command == "get")
+      {
+        int key;
+        cin >> key;
+        cout << l.get(key) << endl;
+      }
+      else if(command == "set")
+      {
+        int key, value;
+        cin >> key >> value;
+        l.set(key, value);
+      }
+  }
+  return 0;
+}
+  
+ 
