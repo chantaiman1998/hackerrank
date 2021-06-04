@@ -16,7 +16,7 @@ int largest_proper_divisor(int n) {
     }
     return -1;  // never happen
 }
-
+// method start
 void process_input(int n) {
     try {
         int d = largest_proper_divisor(n);
@@ -26,7 +26,7 @@ void process_input(int n) {
     }
     cout << "returning control flow to caller" << endl;
 }
-
+// method end
 int main() {
     int n;
     cin >> n;
