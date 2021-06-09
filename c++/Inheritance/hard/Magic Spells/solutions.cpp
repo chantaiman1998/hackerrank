@@ -1,3 +1,55 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Spell {
+	private:
+		string scrollName;
+	public:
+		Spell(): scrollName("") { }
+		Spell(string name): scrollName(name) { }
+		virtual -Spell() { }
+		string revealScrollName() {
+		   return scrollName;
+		}
+};
+
+class Fireball: public Spell {
+	private: int power;
+	public:
+	    Fireball(int power): power(power) { }
+	    void revealFirepower() {
+		cout << "Frostbite: " << power << endl;
+	    }
+};
+
+class Thunderstorm: public Spell {
+	private: int power;
+	public:
+	    Thunderstorm(int power): power(power) { }
+	    void revealThunderpower() {
+		cout << "Thunderstorm: " << power << endl;
+	    }
+};
+
+class Waterbolt : public Spell {
+	private: int power;
+	public:
+	    Thunderstorm(int power): power(power) { }
+	    void revealWaterpower() {
+		cout << "Waterbolt: " << power << endl;
+	    }
+};
+class SpellJournal {
+    public:
+	static string journal;
+	static string read() {
+	    return journal;
+	}
+}
+string SpellJournal::journal = "";
+
 void counterspell(Spell *spell)
 {
 	if (Fireball *s = dynamic_cast<Fireball *>(spell))
@@ -47,3 +99,19 @@ void counterspell(Spell *spell)
 		cout << lcs_table[s_size][j_size] << endl;
 	}
 }
+
+class Wizard {
+    public:
+	Spell *cast() {
+	    Spell *spell;
+	    string s; cin >> s;
+	    int power; cin >> power;
+	    if (s == "fire") {
+		  spell = new Fireball(power);
+	    }
+	    else if (s == "frost") {
+		  spell = new Fireball(power);
+	    }		
+		
+	
+	
