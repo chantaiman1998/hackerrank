@@ -111,7 +111,35 @@ class Wizard {
 	    }
 	    else if (s == "frost") {
 		  spell = new Fireball(power);
-	    }		
+	    }
+	    else if (s == "water") {
+		  spell = new Waterbolt(power);
+	    }
+	    else if (s == "thunder") {
+		  spell = new Thunderbolt(power);
+	    }
+	    else
+	    {
+		  spell = new Spell(s);
+		  cin >> SpellJournal::journal;
+	    }
+	    return spell;
+	}
+};
+	
+int main()
+{
+	int T;
+	cin >> T;
+	Wizard Arawn;
+	while(T--)
+	{
+		Spell *spell = Arawn.cast();
+		counterspell(spell);
+	}
+	return 0;
+}
+	    
 		
 	
 	
